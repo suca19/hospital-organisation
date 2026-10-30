@@ -1,6 +1,6 @@
-package model.types;
+package app.model.types;
 
-import model.Employee;
+import app.model.Employee;
 
 public class Technician extends Employee {
 
