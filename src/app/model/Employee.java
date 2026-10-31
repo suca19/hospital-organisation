@@ -2,24 +2,31 @@ package app.model;
 
 public abstract class Employee {
     private String name;
-    private String department;
-    private String position;
+    private Department department;
+    private ManagerType managerType;
 
-    public Employee(String name, String department, String position) {
+    public Employee(String name, Department department, ManagerType managerType) {
         this.name = name;
         this.department = department;
-        this.position = position;
+        this.managerType = managerType;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public String getPosition() {
-        return position;
+    public ManagerType getManagerType() {
+        return managerType;
+    }
+
+    public abstract String getProfession();
+
+    @Override
+    public String toString() {
+        return name + ", " + getProfession() + ", " + department.getDepartmentName() + ", " + managerType.getManagerTypeName();
     }
 }
