@@ -1,7 +1,7 @@
 package app;
 
 public enum Option {
-    SORT(1, "Sort Records"),
+    SORT(1, "Sort Employees"),
     SEARCH(2, "Search Records"),
     ADD_RECORDS(3, "Add Records"),
     CREATE_BINARY_TREE(4, "Create Binary Tree"),
