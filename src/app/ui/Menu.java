@@ -20,18 +20,18 @@ public class Menu {
 
     // method to load the file and read the employees
     private void loadFile() {
-        do{
+        do {
             System.out.println("Please type the name of your file to read");
             String fileName = scanner.nextLine().trim();
             employees = employeeReader.load(fileName);
-        
+
         } while (employees.isEmpty());
-            System.out.println("File read successfully!!");
+        System.out.println("File read successfully!!");
     }
 
     // method to read an integer from the user input with error handling
     private int readInt() {
-        while(true){
+        while (true) {
             String input = scanner.nextLine().trim();
             try {
                 return Integer.parseInt(input);
@@ -42,38 +42,38 @@ public class Menu {
     }
 
     // method to display the menu options and read the user's choice
-    private void mainLoop(){
+    private void mainLoop() {
         Option choice = null;
 
-        while(choice != Option.EXIT){
-                
-                spacer();
-                System.out.println("Printing Menu!!!");
-                spacer();
-                for(Option option : Option.values()){
-                    System.out.println(option.getOptionNumber() + ". " + option.getOptionDescription());
-                }
-                spacer();
+        while (choice != Option.EXIT) {
 
-                choice = Option.fromOptionNumber(readInt());
+            spacer();
+            System.out.println("Printing Menu, Select an option between 1-5");
+            spacer();
+            for (Option option : Option.values()) {
+                System.out.println(option.getOptionNumber() + ". " + option.getOptionDescription());
+            }
+            spacer();
 
-                if(choice == null){
-                    System.out.println("Invalid option, please select an option between 1-5");
-                    continue;
-                }
+            choice = Option.fromOptionNumber(readInt());
 
-                switch (choice.getOptionDescription()) {
-                    case "Sort Employees" -> System.out.println("Sort Employees selected!");
-                    case "Search Records" -> System.out.println("Search Records selected!");
-                    case "Add Records" -> System.out.println("Add Records selected!");
-                    case "Create Binary Tree" -> System.out.println("Create Binary Tree selected!");
-                    case "Exit" -> System.out.println("Exit selected!");
-                }
+            if (choice == null) {
+                System.out.println("Invalid option, please select an option between 1-5");
+                continue;
+            }
+
+            switch (choice.getOptionDescription()) {
+                case "Sort Employees" -> System.out.println("Sort Employees selected!");
+                case "Search Records" -> System.out.println("Search Records selected!");
+                case "Add Records" -> System.out.println("Add Records selected!");
+                case "Create Binary Tree" -> System.out.println("Create Binary Tree selected!");
+                case "Exit" -> System.out.println("Exit selected!");
+            }
         }
 
     }
 
-    private void spacer(){
+    private void spacer() {
         System.out.println("-------------------");
     }
 }
