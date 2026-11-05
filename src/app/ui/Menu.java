@@ -15,6 +15,7 @@ public class Menu {
     private final Sorter sorter = new Sorter();
     private final Searcher searcher = new Searcher();
     private List<Employee> employees;
+    private final AddRecordForm addRecordForm = new AddRecordForm(scanner);
 
     // run method to start the menu and load the file
     public void run() {
@@ -69,7 +70,7 @@ public class Menu {
             switch (choice) {
                 case SORT -> sortEmployees();
                 case SEARCH -> searchRecords();
-                case ADD_RECORDS -> System.out.println("Add Records selected!");
+                case ADD_RECORDS -> addRecordForm.run(employees);
                 case CREATE_BINARY_TREE -> System.out.println("Create Binary Tree selected!");
                 case EXIT -> System.out.println("Goodbye!");
             }
@@ -90,7 +91,8 @@ public class Menu {
         spacer();
     }
 
-    // sorts the list (binary search needs it sorted), asks for a name and searches it recursively
+    // sorts the list (binary search needs it sorted), asks for a name and searches
+    // it recursively
     private void searchRecords() {
         employees = sorter.mergeSort(employees);
 

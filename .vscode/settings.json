@@ -1,4 +1,11 @@
-   {
-     "java.project.sourcePaths": ["src"],
-     "java.project.outputPath": "bin"
-   }
+{
+  "java.project.sourcePaths": ["src"],
+  "java.project.outputPath": "bin",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/home/carlos/.sdkman/candidates/java/21.0.5-tem",
+      "default": true
+    }
+  ]
+}
