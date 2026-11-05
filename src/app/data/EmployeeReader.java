@@ -39,7 +39,7 @@ public class EmployeeReader {
                 employees.add(employee);
             }
 
-            System.out.println("Loaded " + employees.size() + " Employees");
+            System.out.println("-----> Loaded " + employees.size() + " Employees");
             return employees;
         } catch (IOException e) {
             System.out.println("Could not read the file: " + e.getMessage());

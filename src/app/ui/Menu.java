@@ -2,6 +2,7 @@ package app.ui;
 
 import java.util.Scanner;
 
+import app.algorithms.Sorter;
 import app.data.EmployeeReader;
 import java.util.List;
 import app.model.Employee;
@@ -10,6 +11,7 @@ import app.Option;
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final EmployeeReader employeeReader = new EmployeeReader();
+    private final Sorter sorter = new Sorter();
     private List<Employee> employees;
 
     // run method to start the menu and load the file
@@ -26,7 +28,7 @@ public class Menu {
             employees = employeeReader.load(fileName);
 
         } while (employees.isEmpty());
-        System.out.println("File read successfully!!");
+        System.out.println("-----> File read successfully!!");
     }
 
     // method to read an integer from the user input with error handling
@@ -62,15 +64,28 @@ public class Menu {
                 continue;
             }
 
-            switch (choice.getOptionDescription()) {
-                case "Sort Employees" -> System.out.println("Sort Employees selected!");
-                case "Search Records" -> System.out.println("Search Records selected!");
-                case "Add Records" -> System.out.println("Add Records selected!");
-                case "Create Binary Tree" -> System.out.println("Create Binary Tree selected!");
-                case "Exit" -> System.out.println("Exit selected!");
+            switch (choice) {
+                case SORT -> sortEmployees();
+                case SEARCH -> System.out.println("Search Records selected!");
+                case ADD_RECORDS -> System.out.println("Add Records selected!");
+                case CREATE_BINARY_TREE -> System.out.println("Create Binary Tree selected!");
+                case EXIT -> System.out.println("Goodbye!");
             }
         }
 
+    }
+
+    // sorts the employees with Merge Sort and displays the first 20
+    private void sortEmployees() {
+        employees = sorter.mergeSort(employees);
+
+        int limit = Math.min(20, employees.size());
+        spacer();
+        System.out.println("First " + limit + " employees sorted alphabetically:");
+        for (int k = 0; k < limit; k++) {
+            System.out.println((k + 1) + ". " + employees.get(k));
+        }
+        spacer();
     }
 
     private void spacer() {
