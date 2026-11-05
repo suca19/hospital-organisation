@@ -4,10 +4,9 @@ import java.util.List;
 
 import app.model.Department;
 import app.model.Employee;
+import app.model.EmployeeFactory;
 import app.model.ManagerType;
-import app.model.types.Doctor;
-import app.model.types.Nurse;
-import app.model.types.Technician;
+import app.model.Profession;
 
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -64,22 +63,12 @@ public class EmployeeReader {
             return null;
         }
 
-        String profession = parts[6].trim();
-
-        switch (profession.toLowerCase()) {
-            case "doctor" -> {
-                return new Doctor(name, department, managerType);
-            }
-            case "nurse" -> {
-                return new Nurse(name, department, managerType);
-            }
-            case "technician" -> {
-                return new Technician(name, department, managerType);
-            }
-            default -> {
-                return null;
-            } // unknown profession
+        Profession profession = Profession.fromProfessionName(parts[6].trim());
+        if(profession == null) {
+            return null;
         }
+
+        return EmployeeFactory.createEmployee(profession, name, department, managerType);
 
     }
 }

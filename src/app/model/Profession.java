@@ -30,4 +30,13 @@ public enum Profession {
         }
         return null;
     }
+    public static Profession fromProfessionName(String professionName) {
+
+        for (Profession profession : Profession.values()) {
+            if (profession.getProfessionName().equalsIgnoreCase(professionName)) {
+                return profession;
+            }
+        }
+        return null;
+    }
 }
