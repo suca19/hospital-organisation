@@ -7,11 +7,13 @@ import app.data.EmployeeReader;
 import java.util.List;
 import app.model.Employee;
 import app.Option;
+import app.algorithms.Searcher;
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final EmployeeReader employeeReader = new EmployeeReader();
     private final Sorter sorter = new Sorter();
+    private final Searcher searcher = new Searcher();
     private List<Employee> employees;
 
     // run method to start the menu and load the file
@@ -66,7 +68,7 @@ public class Menu {
 
             switch (choice) {
                 case SORT -> sortEmployees();
-                case SEARCH -> System.out.println("Search Records selected!");
+                case SEARCH -> searchRecords();
                 case ADD_RECORDS -> System.out.println("Add Records selected!");
                 case CREATE_BINARY_TREE -> System.out.println("Create Binary Tree selected!");
                 case EXIT -> System.out.println("Goodbye!");
@@ -84,6 +86,32 @@ public class Menu {
         System.out.println("First " + limit + " employees sorted alphabetically:");
         for (int k = 0; k < limit; k++) {
             System.out.println((k + 1) + ". " + employees.get(k));
+        }
+        spacer();
+    }
+
+    // sorts the list (binary search needs it sorted), asks for a name and searches it recursively
+    private void searchRecords() {
+        employees = sorter.mergeSort(employees);
+
+        String targetName;
+        do {
+            System.out.println("Please type the full name of the employee you want to search for:");
+            targetName = scanner.nextLine().trim();
+            if (targetName.isEmpty()) {
+                System.out.println("The name cannot be empty, try again please!");
+            }
+        } while (targetName.isEmpty());
+
+        Employee found = searcher.binarySearch(employees, targetName, 0, employees.size() - 1);
+
+        spacer();
+        if (found == null) {
+            System.out.println("Employee \"" + targetName + "\" not found.");
+        } else {
+            System.out.println("Employee found: " + found.getName());
+            System.out.println("Manager Type:   " + found.getManagerType().getManagerTypeName());
+            System.out.println("Department:     " + found.getDepartment().getDepartmentName());
         }
         spacer();
     }
