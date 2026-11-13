@@ -80,7 +80,7 @@ public class Menu {
 
     // sorts the employees with Merge Sort and displays the first 20
     private void sortEmployees() {
-        employees = sorter.mergeSort(employees);
+        employees = sorter.mergeSort(employees, Employee.BY_NAME);
 
         int limit = Math.min(20, employees.size());
         spacer();
@@ -94,7 +94,7 @@ public class Menu {
     // sorts the list (binary search needs it sorted), asks for a name and searches
     // it recursively
     private void searchRecords() {
-        employees = sorter.mergeSort(employees);
+        employees = sorter.mergeSort(employees, Employee.BY_NAME);
 
         String targetName;
         do {
