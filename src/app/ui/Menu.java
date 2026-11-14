@@ -8,6 +8,7 @@ import java.util.List;
 import app.model.Employee;
 import app.Option;
 import app.algorithms.Searcher;
+import app.tree.EmployeeTree;
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
@@ -71,7 +72,7 @@ public class Menu {
                 case SORT -> sortEmployees();
                 case SEARCH -> searchRecords();
                 case ADD_RECORDS -> addRecordForm.run(employees);
-                case CREATE_BINARY_TREE -> System.out.println("Create Binary Tree selected!");
+                case CREATE_BINARY_TREE -> createBinaryTree();
                 case EXIT -> System.out.println("Goodbye!");
             }
         }
@@ -115,6 +116,27 @@ public class Menu {
             System.out.println("Manager Type:   " + found.getManagerType().getManagerTypeName());
             System.out.println("Department:     " + found.getDepartment().getDepartmentName());
         }
+        spacer();
+    }
+
+    // builds the hospital hierarchy: most senior at the root, filled level by level
+    private void createBinaryTree() {
+        // sort by name first, then by rank: the sort is stable, so each rank stays alphabetical
+        List<Employee> byRank = sorter.mergeSort(employees, Employee.BY_NAME);
+        byRank = sorter.mergeSort(byRank, Employee.BY_RANK);
+
+        // a new tree every time, so it always matches the current list (including added records)
+        EmployeeTree tree = new EmployeeTree();
+        for (Employee employee : byRank) {
+            tree.insert(employee);
+        }
+
+        spacer();
+        System.out.println("Hospital hierarchy (level-order traversal):");
+        tree.printLevelOrder();
+        spacer();
+        System.out.println("Tree height:     " + tree.height());
+        System.out.println("Number of nodes: " + tree.countNodes());
         spacer();
     }
 
