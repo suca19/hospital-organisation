@@ -1,12 +1,13 @@
 package app.model.types;
 
 import app.model.Employee;
-import app.model.Department;
-import app.model.ManagerType;
+import app.model.department.HospitalDepartment;
+import app.model.position.Position;
 
+// A technician: an Employee whose profession is "Technician"
 public class Technician extends Employee {
 
-    public Technician(String name, Department department, ManagerType managerType) {
+    public Technician(String name, HospitalDepartment department, Position managerType) {
         super(name, department, managerType);
     }
 

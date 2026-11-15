@@ -1,5 +1,6 @@
 package app.model;
 
+// Hospital departments
 public enum Department {
     EMERGENCY(1, "Emergency"),
     CARDIOLOGY(2, "Cardiology"),
@@ -26,6 +27,7 @@ public enum Department {
         return departmentName;
     }
 
+    // finds the department for a menu number, or null if the number doesn't exist
     public static Department fromDepartmentNumber(int departmentNumber) {
 
         for (Department department : Department.values()) {
@@ -36,6 +38,7 @@ public enum Department {
         return null;
     }
 
+    // finds the department for a name from the file (ignoring case), or null if unknown
     public static Department fromDepartmentName(String departmentName) {
 
         for (Department department : Department.values()) {

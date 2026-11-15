@@ -1,5 +1,6 @@
 package app.model;
 
+// Staff roles; rank 1 is the most senior (used to build the hierarchy tree)
 public enum ManagerType {
     HOSPITAL_DIRECTOR(1, "Hospital Director",1),
     HEAD_OF_DEPARTMENT(2, "Head of Department",2),
@@ -29,6 +30,7 @@ public enum ManagerType {
         return rank;
     }
 
+    // finds the role for a menu number, or null if the number doesn't exist
     public static ManagerType fromManagerTypeNumber(int managerTypeNumber) {
 
         for (ManagerType managerType : ManagerType.values()) {
@@ -41,6 +43,7 @@ public enum ManagerType {
         return null;
     }
 
+    // finds the role for a job title from the file (ignoring case), or null if unknown
     public static ManagerType fromManagerTypeName(String managerTypeName) {
 
         for (ManagerType managerType : ManagerType.values()) {
