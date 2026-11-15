@@ -15,7 +15,7 @@ public class Searcher {
             return null;
         }
 
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2; // middle of the current search area
         Employee middleEmployee = sortedEmployees.get(mid);
         int comparison = targetName.compareToIgnoreCase(middleEmployee.getName());
 

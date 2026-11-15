@@ -13,21 +13,22 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Reads the staff file and turns each valid line into an Employee
 public class EmployeeReader {
 
-    // local variable to check if there are fewer than 9 parts, otherwise we return
-    // null
+    // number of columns every line must have; shorter lines are skipped
     private static final int expectedColumns = 9;
 
+    // loads all valid employees from the file; returns an empty list if the file can't be read
     public List<Employee> load(String filePath) {
         List<Employee> employees = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(Path.of(filePath));
 
-            for (int i = 1; i < lines.size(); i++) {
+            for (int i = 1; i < lines.size(); i++) { // start at 1 to skip the header line
                 String line = lines.get(i);
 
-                if (line.isBlank()) {
+                if (line.isBlank()) { // ignore empty lines
                     continue;
                 }
                 Employee employee = parseEmployee(line);
@@ -47,6 +48,7 @@ public class EmployeeReader {
         return employees;
     }
 
+    // turns one CSV line into an Employee, or returns null if any value is missing or unknown
     private Employee parseEmployee(String line) {
 
         String[] parts = line.split(",");
@@ -55,6 +57,7 @@ public class EmployeeReader {
             return null;
         }
 
+        // columns: 0 first name, 1 last name, 5 department, 6 profession, 7 job title
         String name = parts[0].trim() + " " + parts[1].trim();
         Department department = Department.fromDepartmentName(parts[5].trim());
         ManagerType managerType = ManagerType.fromManagerTypeName(parts[7].trim());
@@ -68,7 +71,7 @@ public class EmployeeReader {
             return null;
         }
 
-        return EmployeeFactory.createEmployee(profession, name, department, managerType);
+        return EmployeeFactory.createEmployee(profession, name, department, managerType); // builds Doctor / Nurse / Technician
 
     }
 }
