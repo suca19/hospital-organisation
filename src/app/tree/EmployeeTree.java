@@ -4,8 +4,9 @@ import app.model.Employee;
 import java.util.Queue;
 import java.util.LinkedList;
 
+// Binary tree that represents the hospital hierarchy (most senior employee at the root)
 public class EmployeeTree {
-    private TreeNode root;
+    private TreeNode root; // top of the tree (null = empty tree)
 
     public EmployeeTree() {
         this.root = null;
@@ -15,24 +16,25 @@ public class EmployeeTree {
         return root;
     }
 
+    // inserts level by level, left to right: the first node with a free slot gets the new employee
     public void insert(Employee employee) {
-        if (root == null) {
+        if (root == null) { // the first employee becomes the root
             root = new TreeNode(employee);
         } else {
-            Queue<TreeNode> queue = new LinkedList<>();
+            Queue<TreeNode> queue = new LinkedList<>(); // nodes waiting to be checked, in level order
             queue.add(root);
 
             while(!queue.isEmpty()) {
-                TreeNode current = queue.poll();
+                TreeNode current = queue.poll(); // take the next node in line
 
-                if (current.getLeft() == null) {
+                if (current.getLeft() == null) { // free left slot: place the employee here and stop
                     current.setLeft(new TreeNode(employee));
                     break;
-                } else {
+                } else { // left slot taken: check that child later
                     queue.add(current.getLeft());
                 }
 
-                if (current.getRight() == null) {
+                if (current.getRight() == null) { // free right slot: place the employee here and stop
                     current.setRight(new TreeNode(employee));
                     break;
                 } else {
@@ -61,7 +63,8 @@ public class EmployeeTree {
             for (int k = 0; k < nodesInLevel; k++) {
                 TreeNode current = queue.poll();
                 Employee employee = current.getEmployee();
-                System.out.println("   " + employee.getName() + " | "
+                String marker = employee.getManagerType().canManageOthers() ? " * " : "   "; // * = manages other employees
+                System.out.println(marker + employee.getName() + " | "
                         + employee.getManagerType().getManagerTypeName() + " | "
                         + employee.getDepartment().getDepartmentName());
 

@@ -1,5 +1,6 @@
 package app;
 
+// Main menu options; the menu is printed by looping over values()
 public enum Option {
     SORT(1, "Sort Employees"),
     SEARCH(2, "Search Records"),

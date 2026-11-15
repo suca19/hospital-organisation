@@ -10,8 +10,9 @@ import app.Option;
 import app.algorithms.Searcher;
 import app.tree.EmployeeTree;
 
+// Main screen: loads the file, shows the menu and runs the option the user picks
 public class Menu {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in); // the only Scanner in the program
     private final EmployeeReader employeeReader = new EmployeeReader();
     private final Sorter sorter = new Sorter();
     private final Searcher searcher = new Searcher();
@@ -31,7 +32,7 @@ public class Menu {
             String fileName = scanner.nextLine().trim();
             employees = employeeReader.load(fileName);
 
-        } while (employees.isEmpty());
+        } while (employees.isEmpty()); // ask again until at least one employee is loaded
         System.out.println("-----> File read successfully!!");
     }
 
@@ -61,7 +62,7 @@ public class Menu {
             }
             spacer();
 
-            choice = Option.fromOptionNumber(readInt());
+            choice = Option.fromOptionNumber(readInt()); // null if the number is not a menu option
 
             if (choice == null) {
                 System.out.println("Invalid option, please select an option between 1-5");
@@ -83,7 +84,7 @@ public class Menu {
     private void sortEmployees() {
         employees = sorter.mergeSort(employees, Employee.BY_NAME);
 
-        int limit = Math.min(20, employees.size());
+        int limit = Math.min(20, employees.size()); // never more than the list has
         spacer();
         System.out.println("First " + limit + " employees sorted alphabetically:");
         for (int k = 0; k < limit; k++) {
@@ -106,15 +107,18 @@ public class Menu {
             }
         } while (targetName.isEmpty());
 
-        Employee found = searcher.binarySearch(employees, targetName, 0, employees.size() - 1);
+        Employee found = searcher.binarySearch(employees, targetName, 0, employees.size() - 1); // search the whole list
 
         spacer();
         if (found == null) {
             System.out.println("Employee \"" + targetName + "\" not found.");
         } else {
             System.out.println("Employee found: " + found.getName());
-            System.out.println("Manager Type:   " + found.getManagerType().getManagerTypeName());
-            System.out.println("Department:     " + found.getDepartment().getDepartmentName());
+            System.out.println("Manager Type:   " + found.getManagerType().getManagerTypeName()
+                    + " (" + found.getManagerType().getResponsibility() + ")");
+            System.out.println("Department:     " + found.getDepartment().getDepartmentName()
+                    + " (" + found.getDepartment().getCategory()
+                    + (found.getDepartment().isOpen24Hours() ? ", open 24 hours" : ", office hours") + ")");
         }
         spacer();
     }
@@ -132,7 +136,7 @@ public class Menu {
         }
 
         spacer();
-        System.out.println("Hospital hierarchy (level-order traversal):");
+        System.out.println("Hospital hierarchy (level-order traversal), * = manages other employees:");
         tree.printLevelOrder();
         spacer();
         System.out.println("Tree height:     " + tree.height());
@@ -140,6 +144,7 @@ public class Menu {
         spacer();
     }
 
+    // prints a separator line
     private void spacer() {
         System.out.println("-------------------");
     }

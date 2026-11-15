@@ -2,11 +2,13 @@ package app.tree;
 
 import app.model.Employee;
 
+// One position in the hierarchy tree: an employee plus at most two children (left and right)
 public class TreeNode {
     private final Employee employee;
-    private TreeNode left;
-    private TreeNode right;
+    private TreeNode left;   // first child (null = empty slot)
+    private TreeNode right;  // second child (null = empty slot)
 
+    // a new node starts with no children
     public TreeNode(Employee employee) {
         this.employee = employee;
         this.left = null;
